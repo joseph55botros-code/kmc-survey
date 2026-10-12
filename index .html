@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>استبيان رضا الزبائن - مركز KMC للتجميل</title>
+<meta name="theme-color" content="#8E2C4E">
+<style>
+:root{
+  --brand:#8E2C4E;
+  --brand-soft:#F3E6EB;
+  --bg:#F7F5F6;
+  --card:#FFFFFF;
+  --ink:#241C22;
+  --muted:#7A6B72;
+  --line:#E7DDE1;
+  --ok:#2E7D5B;
+  --warn:#B8791F;
+  --bad:#B23A48;
+  --r:14px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:"Segoe UI",Tahoma,"Noto Kufi Arabic","Droid Arabic Kufi",Arial,sans-serif;
+  font-size:16px;line-height:1.7;
+}
+.wrap{max-width:820px;margin:0 auto;padding:0 14px 40px}
+header{background:var(--brand);color:#fff;padding:16px 14px 14px}
+.hdr{max-width:820px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-direction:row-reverse}
+.brand{text-align:right}
+.brand b{display:block;font-size:19px;letter-spacing:.5px}
+.brand span{display:block;font-size:12.5px;opacity:.9}
+.logo{width:46px;height:46px;border:2px solid rgba(255,255,255,.75);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;cursor:pointer;user-select:none;background:#fff;overflow:hidden}
+.logo img{width:100%;height:100%;object-fit:contain;padding:4px;box-sizing:border-box}
+.bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:16px 0 6px}
+.bar i{display:block;height:100%;background:var(--brand);width:0;transition:width .25s}
+.stepline{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.card h2{margin:0 0 4px;font-size:17px;color:var(--brand)}
+.card p.sub{margin:0 0 14px;font-size:13.5px;color:var(--muted)}
+.q{margin-bottom:20px}
+.q:last-child{margin-bottom:4px}
+.q label.t{display:block;font-weight:600;font-size:15px;margin-bottom:9px}
+.req:after{content:" *";color:var(--bad)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 13px;font:inherit;font-size:14.5px;color:var(--ink);cursor:pointer}
+.opt:hover{border-color:var(--brand)}
+.opt.on{background:var(--brand);border-color:var(--brand);color:#fff}
+textarea,input[type=text],input[type=tel],input[type=password],select{
+  width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:15px;background:#fff;color:var(--ink)
+}
+textarea{min-height:92px;resize:vertical}
+input:focus,textarea:focus,select:focus,.opt:focus,button:focus{outline:2px solid var(--brand);outline-offset:1px}
+.stars{display:flex;gap:6px;flex-direction:row-reverse;justify-content:flex-end}
+.star{width:42px;height:42px;border:1px solid var(--line);background:#fff;border-radius:10px;font-size:21px;line-height:1;cursor:pointer;color:#D9CDD2;padding:0}
+.star.on{color:#fff;background:var(--brand);border-color:var(--brand)}
+.starhint{font-size:12.5px;color:var(--muted);margin-top:6px;min-height:18px}
+.scale5{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.sc5{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 14px;font:inherit;font-size:14px;color:var(--ink);cursor:pointer;min-width:80px;text-align:center}
+.sc5:hover{border-color:var(--brand)}
+.sc5.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.nps{display:flex;flex-wrap:wrap;gap:6px;flex-direction:row-reverse;justify-content:flex-end}
+.nps button{width:40px;height:40px;border:1px solid var(--line);background:#fff;border-radius:9px;font:inherit;font-size:15px;cursor:pointer;padding:0;color:var(--ink)}
+.nps button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.npsends{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+.nav{display:flex;gap:10px;margin-top:6px}
+.btn{flex:1;padding:13px;border-radius:11px;border:1px solid var(--brand);background:var(--brand);color:#fff;font:inherit;font-size:16px;font-weight:600;cursor:pointer}
+.btn.ghost{background:#fff;color:var(--brand)}
+.btn.sm{flex:none;padding:9px 14px;font-size:14px;font-weight:500}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.err{background:#FDECEE;border:1px solid #F3C9CE;color:var(--bad);padding:10px 12px;border-radius:10px;font-size:14px;margin-bottom:12px;display:none}
+.hint{font-size:12.5px;color:var(--muted);margin-top:6px}
+footer{text-align:center;font-size:12.5px;color:var(--muted);padding:18px 12px 26px;line-height:1.9}
+.thanks{text-align:center;padding:34px 18px}
+.thanks .tick{width:74px;height:74px;border-radius:50%;background:var(--brand-soft);color:var(--brand);font-size:38px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.thanks h2{margin:0 0 8px;color:var(--brand);font-size:21px}
+.thanks p{margin:0 0 6px;color:var(--muted);font-size:15px}
+.hotline-box{background:var(--brand-soft);border:1px solid var(--brand);border-radius:12px;padding:14px 16px;margin:18px 0;text-align:center}
+.hotline-box p{margin:0;color:var(--ink);font-size:15px}
+.hotline-box strong{color:var(--brand);font-size:17px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:99px;padding:8px 16px;font:inherit;font-size:14.5px;cursor:pointer;color:var(--ink)}
+.tab.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:620px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px}
+.kpi b{display:block;font-size:24px;color:var(--brand);line-height:1.3}
+.kpi span{font-size:12.5px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{background:var(--brand-soft);color:var(--brand);padding:9px 10px;text-align:right;font-weight:600}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:#faf8f9}
+.badge{display:inline-block;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:600}
+.badge.g{background:#D6EFE4;color:var(--ok)}
+.badge.w{background:#FEF3E2;color:var(--warn)}
+.badge.b{background:#FDECEE;color:var(--bad)}
+.bar2{height:14px;background:var(--line);border-radius:99px;overflow:hidden;margin:3px 0}
+.bar2 i{display:block;height:100%;background:var(--brand);border-radius:99px}
+.hide{display:none!important}
+.section-gate{background:var(--brand-soft);border:1px solid var(--brand);border-radius:var(--r);padding:16px;margin-bottom:14px}
+</style>
+</head>
+<body>
+<header>
+<div class="hdr">
+  <div class="brand">
+    <b>مركز KMC للتجميل</b>
+    <span>استبيان رضا الزبائن</span>
+  </div>
+  <div class="logo" id="adminBtn" title="لوحة الإدارة">KMC</div>
+</div>
+</header>
+
+<div class="wrap">
+  <div class="bar"><i id="prog"></i></div>
+  <div class="stepline"><span id="stepName"></span><span id="stepCount"></span></div>
+  <div id="main"></div>
+</div>
+
+<footer>
+  مركز KMC للتجميل &nbsp;|&nbsp; جميع المعلومات سرية
+</footer>
+
+<script>
+var CFG={
+  branches:["الفرع الرئيسي","فرع المزة","فرع المالكي","فرع أخرى"],
+  channels:["صديقة أو معارف","إنستغرام","فيسبوك","غوغل","تيك توك","أخرى"],
+  services:[
+    "ليزر إزالة الشعر","عناية وتنظيف بشرة","عيادة جلدية",
+    "عيادة جراحة تجميلية","عيادة أذنية","عيادة تغذية",
+    "فيلر / بوتوكس","ميزوثيرابي / نضارة","علاج تساقط الشعر",
+    "تخسيس وتنحيف","خدمة أخرى"
+  ],
+  liked:["جودة الخدمة","نظافة المركز","تعامل الفريق","الأسعار","سرعة الخدمة","المظهر العام"],
+  improve:["الأسعار","أوقات العمل","التواصل والحجز","سرعة الخدمة","تنوع الخدمات","التوضيح قبل الجلسة"],
+  wanted:["جلسات تقشير كيميائي","مساج استرخاء","عروض وباقات","قسم زراعة الشعر","قسم العناية بالأظافر"],
+  scale5:["غير راضٍ","مقبول","جيد","جيد جداً","ممتاز"],
+  starHints:["سيئة","مقبولة","جيدة","جيدة جداً","ممتازة"],
+  API:""
+};
+
+var A={
+  first:"",channel:"",services:[],
+  recPhone:"",recWelcome:"",recApptPrecision:"",recClean:"",
+  booking:"",apptSatisfied:"",apptHonored:"",
+  hasLaser:"",laserApptContact:"",laserApptOnTime:"",laserBedClean:"",
+  laserDeviceClean:"",laserExpertise:"",laserCare:"",laserResult:"",laserComfort:"",
+  clinicType:"",clinicExperience:"",doctorCare:"",
+  hasCosmeticSurgery:"",cosResult:"",cosClinicAtmo:"",cosDisinfection:"",cosNursing:"",cosProcedureNote:"",
+  nps:null,again:"",liked:[],improve:[],wanted:[],
+  problem:"",problemTxt:"",note:"",name:"",phone:"",contactOk:""
+};
+
+var STEP=0;
+var STEPS=[
+  {name:"التعارف",                   build:stepA},
+  {name:"تقييم الاستقبال",           build:stepB},
+  {name:"الحجز والمواعيد",           build:stepC},
+  {name:"قسم الليزر",                build:stepD},
+  {name:"عيادة الجراحة التجميلية والجلدية", build:stepE},
+  {name:"رضاكِ العام واقتراحاتك",     build:stepF}
+];
+
+/* helpers */
+function el(tag,cls,txt){
+  var e=document.createElement(tag);
+  if(cls)e.className=cls;
+  if(txt!=null)e.textContent=txt;
+  return e;
+}
+function qBox(title,req){
+  var d=el("div","q");
+  var lb=el("label","t",title);
+  if(req)lb.classList.add("req");
+  d.appendChild(lb);
+  return d;
+}
+function single(title,req,opts,field,cb){
+  var q=qBox(title,req), box=el("div","opts");
+  opts.forEach(function(o){
+    var b=el("button","opt",o); b.type="button";
+    if(A[field]===o)b.classList.add("on");
+    b.onclick=function(){
+      A[field]=o;
+      [].forEach.call(box.children,function(c){c.classList.remove("on")});
+      b.classList.add("on");
+      if(cb)cb(o);
+    };
+    box.appendChild(b);
+  });
+  q.appendChild(box); return q;
+}
+function multi(title,req,opts,field){
+  var q=qBox(title,req), box=el("div","opts");
+  opts.forEach(function(o){
+    var b=el("button","opt",o); b.type="button";
+    if(A[field].indexOf(o)>-1)b.classList.add("on");
+    b.onclick=function(){
+      var idx=A[field].indexOf(o);
+      if(idx>-1){A[field].splice(idx,1);b.classList.remove("on");}
+      else{A[field].push(o);b.classList.add("on");}
+    };
+    box.appendChild(b);
+  });
+  q.appendChild(box); return q;
+}
+function scale5q(title,req,field){
+  var q=qBox(title,req), box=el("div","scale5");
+  CFG.scale5.forEach(function(v,i){
+    var val=i+1;
+    var b=el("button","sc5",v); b.type="button";
+    if(A[field]===val)b.classList.add("on");
+    b.onclick=function(){
+      A[field]=val;
+      [].forEach.call(box.children,function(c){c.classList.remove("on")});
+      b.classList.add("on");
+    };
+    box.appendChild(b);
+  });
+  q.appendChild(box); return q;
+}
+function textq(title,req,field,ph,multi_){
+  var q=qBox(title,req);
+  var inp=el(multi_?"textarea":"input");
+  if(!multi_)inp.type="text";
+  inp.placeholder=ph||"";
+  inp.value=A[field]||"";
+  inp.oninput=function(){A[field]=inp.value.trim()};
+  q.appendChild(inp); return q;
+}
+function starsQ(title,req,field){
+  var q=qBox(title,req);
+  var wrap=el("div","stars");
+  var hint=el("div","starhint","");
+  for(var i=5;i>=1;i--){
+    (function(v){
+      var b=el("button","star","★"); b.type="button";
+      if(A[field]===v)b.classList.add("on");
+      b.onclick=function(){
+        A[field]=v;
+        hint.textContent=CFG.starHints[v-1];
+        [].forEach.call(wrap.children,function(c,ci){
+          c.classList.toggle("on", (5-ci)<=v);
+        });
+      };
+      wrap.appendChild(b);
+    })(i);
+  }
+  if(A[field]){hint.textContent=CFG.starHints[A[field]-1];}
+  q.appendChild(wrap); q.appendChild(hint); return q;
+}
+
+/* ========== STEP A: التعارف ========== */
+function stepA(){
+  var d=document.createDocumentFragment();
+  var c=el("div","card");
+  c.innerHTML='<h2>مرحباً بكِ 💐</h2><p class="sub">لا تترددي في إعلامنا برأيكِ بصراحة — كلامكِ يساعدنا نكون أحسن دائماً</p>';
+
+  c.appendChild(single("هل هذه زيارتكِ الأولى؟",true,["نعم، زيارتي الأولى","لا، زبونة قديمة"],"first"));
+  c.appendChild(single("كيف سمعتِ عنّا؟",false,CFG.channels,"channel"));
+  c.appendChild(multi("ما الخدمات التي حصلتِ عليها اليوم؟",true,CFG.services,"services"));
+  d.appendChild(c);
+  return d;
+}
+
+/* ========== STEP B: الاستقبال ========== */
+function stepB(){
+  var d=document.createDocumentFragment();
+  var c=el("div","card");
+  c.innerHTML='<h2>تقييم الاستقبال</h2><p class="sub">قيّمي تجربتكِ مع الاستقبال بصدق</p>';
+  c.appendChild(scale5q("الرد على الهاتف عند الاتصال للحجز",true,"recPhone"));
+  c.appendChild(scale5q("الترحيب باستقبالكِ عند الوصول",true,"recWelcome"));
+  c.appendChild(scale5q("دقة موعدكِ (الالتزام بالوقت المحدد)",true,"recApptPrecision"));
+  c.appendChild(scale5q("نظافة منطقة الاستقبال والانتظار",true,"recClean"));
+  d.appendChild(c);
+  return d;
+}
+
+/* ========== STEP C: الحجز والمواعيد ========== */
+function stepC(){
+  var d=document.createDocumentFragment();
+  var c=el("div","card");
+  c.innerHTML='<h2>الحجز والمواعيد</h2><p class="sub">أخبرينا عن طريقة حجزكِ ومدى رضاكِ</p>';
+  c.appendChild(single("كيف حجزتِ موعدكِ؟",true,
+    ["عبر الهاتف","واتساب","إنستغرام","الحضور المباشر","أخرى"],"booking"));
+  c.appendChild(single("هل كنتِ راضية عن عملية الحجز؟",true,
+    ["نعم، سهلة وسلسة","مقبول","صعبة وتحتاج تحسين"],"apptSatisfied"));
+  c.appendChild(single("هل التزمنا بالموعد المحدد لكِ؟",true,
+    ["نعم، تماماً","تأخر بسيط مقبول","تأخر كبير"],"apptHonored"));
+  d.appendChild(c);
+  return d;
+}
+
+/* ========== STEP D: قسم الليزر ========== */
+function stepD(){
+  var d=document.createDocumentFragment();
+
+  var gateCard=el("div","section-gate");
+  gateCard.innerHTML='<h2>قسم الليزر ✨</h2>';
+
+  var laserSection=el("div","");
+  laserSection.id="laserSection";
+  if(A.hasLaser==="لا")laserSection.classList.add("hide");
+
+  var gateQ=single("هل أجريتِ جلسة ليزر في هذه الزيارة؟",true,["نعم","لا"],"hasLaser",function(v){
+    laserSection.classList.toggle("hide",v==="لا");
+  });
+  gateCard.appendChild(gateQ);
+  d.appendChild(gateCard);
+
+  var c=el("div","card");
+  laserSection.appendChild(single("هل تم التواصل معكِ قبل الجلسة لتذكيركِ وإعطائكِ التعليمات؟",false,["نعم","لا"],"laserApptContact"));
+  laserSection.appendChild(scale5q("دقة موعد الجلسة (الالتزام بالوقت)",false,"laserApptOnTime"));
+  laserSection.appendChild(scale5q("نظافة السرير وأغطية الجلسة",false,"laserBedClean"));
+  laserSection.appendChild(scale5q("نظافة وتعقيم جهاز الليزر",false,"laserDeviceClean"));
+  laserSection.appendChild(scale5q("خبرة وكفاءة المختصة التي أجرت الجلسة",false,"laserExpertise"));
+  laserSection.appendChild(scale5q("اهتمام المختصة بكِ وأسلوب تعاملها",false,"laserCare"));
+  laserSection.appendChild(scale5q("نتيجة الجلسة حتى الآن",false,"laserResult"));
+  laserSection.appendChild(scale5q("مستوى الراحة خلال الجلسة",false,"laserComfort"));
+  c.appendChild(laserSection);
+  d.appendChild(c);
+  return d;
+}
+
+/* ========== STEP E: الجراحة التجميلية والجلدية ========== */
+function stepE(){
+  var d=document.createDocumentFragment();
+
+  var gateCard=el("div","section-gate");
+  gateCard.innerHTML='<h2>عيادة الجراحة التجميلية والجلدية 🏥</h2>';
+  gateCard.appendChild(single("اختاري نوع العيادة",true,["جلدية","جراحة تجميلية"],"clinicType"));
+  d.appendChild(gateCard);
+
+  var c=el("div","card");
+  c.appendChild(scale5q("كيف كانت تجربتكِ حسب الإجراء المطلوب؟",false,"clinicExperience"));
+  c.appendChild(scale5q("كيف كانت معاملة الطبيب المعالج؟",false,"doctorCare"));
+  c.appendChild(scale5q("نتيجة الإجراء الذي أجريتِه",false,"cosResult"));
+  c.appendChild(scale5q("أجواء العيادة (الراحة والاطمئنان)",false,"cosClinicAtmo"));
+  c.appendChild(scale5q("مستوى التعقيم والتعامل مع المعدات",false,"cosDisinfection"));
+  c.appendChild(scale5q("خدمة التمريض والرعاية خلال الإجراء",false,"cosNursing"));
+  c.appendChild(textq("ملاحظاتكِ على الإجراء أو العيادة (اختياري)",false,"cosProcedureNote","أي ملاحظة تودّين إضافتها...",true));
+  d.appendChild(c);
+  return d;
+}
+
+/* ========== STEP F: الرضا العام ========== */
+function stepF(){
+  var d=document.createDocumentFragment();
+  var c1=el("div","card");
+  c1.innerHTML='<h2>رضاكِ العام 🌟</h2><p class="sub">رأيكِ الصريح يهمّنا جداً</p>';
+
+  /* NPS */
+  var npsQ=qBox("كم احتمال أنكِ ستوصين بنا لصديقة أو قريبة؟ (0 = لا أبداً، 10 = بكل تأكيد)",true);
+  var npsRow=el("div","nps");
+  for(var i=10;i>=0;i--){
+    (function(v){
+      var b=el("button","",String(v)); b.type="button";
+      if(A.nps===v)b.classList.add("on");
+      b.onclick=function(){
+        A.nps=v;
+        [].forEach.call(npsRow.children,function(c){c.classList.remove("on")});
+        b.classList.add("on");
+      };
+      npsRow.appendChild(b);
+    })(i);
+  }
+  var npsEnds=el("div","npsends");
+  npsEnds.innerHTML='<span>لن أوصي</span><span>سأوصي بشدة</span>';
+  npsQ.appendChild(npsRow); npsQ.appendChild(npsEnds);
+  c1.appendChild(npsQ);
+  c1.appendChild(single("هل ستعودين إلينا مرة أخرى؟",true,["بالتأكيد","ربما","لا أعتقد"],"again"));
+  c1.appendChild(multi("ما الذي أعجبكِ أكثر؟",false,CFG.liked,"liked"));
+  c1.appendChild(multi("ما الذي تودّين تحسينه؟",false,CFG.improve,"improve"));
+  c1.appendChild(multi("خدمات تودّين رؤيتها عندنا مستقبلاً؟",false,CFG.wanted,"wanted"));
+  d.appendChild(c1);
+
+  var c2=el("div","card");
+  c2.innerHTML='<h2>مشكلة أو شكوى</h2>';
+  c2.appendChild(single("هل واجهتِ أي مشكلة اليوم؟",false,["نعم","لا"],"problem",function(v){
+    ptxt.style.display=v==="نعم"?"block":"none";
+  }));
+  var ptxt=el("div","");
+  ptxt.style.display=A.problem==="نعم"?"block":"none";
+  ptxt.appendChild(textq("يرجى وصف المشكلة",false,"problemTxt","اشرحي المشكلة بإيجاز...",true));
+  c2.appendChild(ptxt);
+  c2.appendChild(textq("ملاحظة عامة أو اقتراح",false,"note","أي شيء إضافي تودّين قوله...",true));
+  d.appendChild(c2);
+
+  var c3=el("div","card");
+  c3.innerHTML='<h2>معلوماتكِ (اختياري)</h2><p class="sub">لو أردتِ أن نتواصل معكِ</p>';
+  c3.appendChild(textq("اسمكِ (اختياري)",false,"name","اسمكِ الكريم"));
+  c3.appendChild(textq("رقم هاتفكِ (اختياري)",false,"phone","للتواصل معكِ عند الحاجة"));
+  c3.appendChild(single("هل توافقين على التواصل معكِ بخصوص العروض المستقبلية؟",false,["نعم","لا"],"contactOk"));
+  d.appendChild(c3);
+
+  /* hotline */
+  var compBox=el("div","hotline-box");
+  compBox.innerHTML='<p>هل لديكِ شكوى عاجلة؟</p><p>تواصلي مع الإدارة مباشرة على الرقم: <strong>0988380358</strong></p>';
+  d.appendChild(compBox);
+
+  return d;
+}
+
+/* ========== Navigation & Validation ========== */
+function valid(){
+  if(STEP===0){
+    if(!A.first){alert("يرجى الإجابة على سؤال الزيارة الأولى"); return false;}
+    if(!A.services.length){alert("يرجى تحديد الخدمات التي حصلتِ عليها"); return false;}
+  }
+  if(STEP===1){
+    if(!A.recPhone){alert("يرجى تقييم الرد على الهاتف"); return false;}
+    if(!A.recWelcome){alert("يرجى تقييم الترحيب"); return false;}
+    if(!A.recApptPrecision){alert("يرجى تقييم دقة الموعد"); return false;}
+    if(!A.recClean){alert("يرجى تقييم نظافة الاستقبال"); return false;}
+  }
+  if(STEP===2){
+    if(!A.booking){alert("يرجى تحديد طريقة الحجز"); return false;}
+    if(!A.apptSatisfied){alert("يرجى تقييم عملية الحجز"); return false;}
+    if(!A.apptHonored){alert("يرجى الإجابة عن الالتزام بالموعد"); return false;}
+  }
+  if(STEP===3){
+    if(!A.hasLaser){alert("يرجى الإجابة على سؤال جلسة الليزر"); return false;}
+  }
+  if(STEP===4){
+    if(!A.clinicType){alert("يرجى اختيار نوع العيادة"); return false;}
+  }
+  if(STEP===5){
+    if(A.nps===null){alert("يرجى تحديد احتمال التوصية (NPS)"); return false;}
+    if(!A.again){alert("يرجى الإجابة على سؤال العودة"); return false;}
+  }
+  return true;
+}
+
+function render(){
+  var main=document.getElementById("main");
+  main.innerHTML="";
+
+  if(STEP>=STEPS.length){
+    showThanks(); return;
+  }
+
+  var frag=STEPS[STEP].build();
+  main.appendChild(frag);
+
+  var errDiv=el("div","err"); errDiv.id="errMsg";
+  main.appendChild(errDiv);
+
+  var nav=el("div","nav");
+  if(STEP>0){
+    var back=el("button","btn ghost","السابق"); back.type="button";
+    back.onclick=function(){STEP--;render();};
+    nav.appendChild(back);
+  }
+
+  var isLast=STEP===STEPS.length-1;
+  var next=el("button","btn",isLast?"إرسال الاستبيان ✓":"التالي"); next.type="button";
+  next.onclick=function(){
+    if(!valid())return;
+    if(isLast){submit();}
+    else{STEP++;render();}
+  };
+  nav.appendChild(next);
+  main.appendChild(nav);
+
+  var prog=document.getElementById("prog");
+  prog.style.width=((STEP/(STEPS.length-1))*100)+"%";
+  document.getElementById("stepName").textContent=STEPS[STEP].name;
+  document.getElementById("stepCount").textContent="الخطوة "+(STEP+1)+" من "+STEPS.length;
+  window.scrollTo(0,0);
+}
+
+function showThanks(){
+  var main=document.getElementById("main");
+  main.innerHTML='';
+  var d=el("div","thanks");
+  d.innerHTML='<div class="tick">✓</div><h2>شكراً جزيلاً! 💖</h2>'+
+    '<p>رأيكِ يساعدنا على تقديم أفضل خدمة دائماً</p>'+
+    '<p>نتطلع إلى رؤيتكِ قريباً في مركز KMC</p>'+
+    '<div class="hotline-box"><p>هل لديكِ شكوى عاجلة؟</p>'+
+    '<p>تواصلي مع الإدارة مباشرة على الرقم: <strong>0988380358</strong></p></div>';
+  main.appendChild(d);
+  document.getElementById("prog").style.width="100%";
+  document.getElementById("stepName").textContent="تم الإرسال";
+  document.getElementById("stepCount").textContent="";
+}
+
+/* ========== Storage & Submit ========== */
+var STORE_KEY="kmc_survey_v2";
+function loadStore(){
+  try{return JSON.parse(localStorage.getItem(STORE_KEY)||"[]");}catch(e){return [];}
+}
+function saveStore(arr){
+  try{localStorage.setItem(STORE_KEY,JSON.stringify(arr));}catch(e){}
+}
+function submit(){
+  var rec=JSON.parse(JSON.stringify(A));
+  rec.ts=new Date().toISOString();
+  rec.id="S"+Date.now();
+  var arr=loadStore(); arr.push(rec); saveStore(arr);
+  if(CFG.API){
+    fetch(CFG.API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(rec)})
+    .catch(function(){});
+  }
+  STEP=STEPS.length;
+  render();
+}
+
+/* ========== Admin ========== */
+var ADMIN_PASS="kmc2024";
+var adminOpen=false;
+
+document.getElementById("adminBtn").addEventListener("click",function(){
+  if(adminOpen){adminOpen=false;render();return;}
+  var p=prompt("كلمة مرور الإدارة:");
+  if(p===ADMIN_PASS){adminOpen=true;renderAdmin();}
+  else if(p!==null)alert("كلمة المرور غير صحيحة");
+});
+
+var TABS=["نظرة عامة","الاستقبال والحجز","قسم الليزر","الجراحة التجميلية والجلدية","الملاحظات","السجل","الإعدادات"];
+var ATAB=0;
+
+function renderAdmin(){
+  var main=document.getElementById("main");
+  main.innerHTML="";
+  document.getElementById("prog").style.width="100%";
+  document.getElementById("stepName").textContent="لوحة الإدارة";
+  document.getElementById("stepCount").textContent="";
+
+  var tabRow=el("div","tabs");
+  TABS.forEach(function(t,i){
+    var b=el("button","tab",t); if(i===ATAB)b.classList.add("on");
+    b.onclick=function(){ATAB=i;renderAdmin();};
+    tabRow.appendChild(b);
+  });
+  main.appendChild(tabRow);
+
+  var data=loadStore();
+  var cont=el("div","");
+  if(ATAB===0)cont.appendChild(tabOverview(data));
+  else if(ATAB===1)cont.appendChild(tabReception(data));
+  else if(ATAB===2)cont.appendChild(tabLaser(data));
+  else if(ATAB===3)cont.appendChild(tabCos(data));
+  else if(ATAB===4)cont.appendChild(tabNotes(data));
+  else if(ATAB===5)cont.appendChild(tabLog(data));
+  else if(ATAB===6)cont.appendChild(tabSettings(data));
+  main.appendChild(cont);
+
+  var nav=el("div","nav");
+  var back=el("button","btn ghost","← العودة للاستبيان"); back.type="button";
+  back.onclick=function(){adminOpen=false;render();};
+  nav.appendChild(back);
+  main.appendChild(nav);
+}
+
+function avg(arr){
+  var v=arr.filter(function(x){return x!=null&&x!==''});
+  if(!v.length)return null;
+  return v.reduce(function(a,b){return a+b;},0)/v.length;
+}
+function pct(arr,val){
+  if(!arr.length)return 0;
+  return Math.round(arr.filter(function(x){return x===val;}).length/arr.length*100);
+}
+function fmtAvg(v){ return v==null?"—":(+v).toFixed(1)+"/5"; }
+function badge(v){
+  if(v==null)return '<span class="badge w">—</span>';
+  if(v>=4)return '<span class="badge g">'+v.toFixed(1)+'</span>';
+  if(v>=3)return '<span class="badge w">'+v.toFixed(1)+'</span>';
+  return '<span class="badge b">'+v.toFixed(1)+'</span>';
+}
+function overallScore(rec){
+  var v=[];
+  ["recWelcome","recApptPrecision","recClean"].forEach(function(k){if(rec[k])v.push(rec[k]);});
+  if(rec.hasLaser==="نعم"){
+    ["laserApptOnTime","laserBedClean","laserDeviceClean","laserExpertise","laserCare","laserResult"]
+    .forEach(function(k){if(rec[k])v.push(rec[k]);});
+  }
+  if(rec.clinicType||rec.hasCosmeticSurgery==="نعم"){
+    ["clinicExperience","doctorCare","cosResult","cosClinicAtmo","cosDisinfection","cosNursing"]
+    .forEach(function(k){if(rec[k])v.push(rec[k]);});
+  }
+  return avg(v);
+}
+function npsLabel(n){
+  if(n>=9)return "مروّج";
+  if(n>=7)return "محايد";
+  return "ناقد";
+}
+function calcNPS(data){
+  var arr=data.filter(function(r){return r.nps!=null;});
+  if(!arr.length)return null;
+  var pro=arr.filter(function(r){return r.nps>=9;}).length;
+  var det=arr.filter(function(r){return r.nps<=6;}).length;
+  return Math.round((pro-det)/arr.length*100);
+}
+
+function kpiCard(label,val){
+  var d=el("div","kpi");
+  d.innerHTML='<b>'+val+'</b><span>'+label+'</span>';
+  return d;
+}
+
+function tabOverview(data){
+  var d=el("div","");
+  var kpis=el("div","kpis");
+  var scores=data.map(overallScore).filter(function(x){return x!=null;});
+  var avgScore=avg(scores);
+  var nps=calcNPS(data);
+  kpis.appendChild(kpiCard("إجمالي الاستبيانات",data.length));
+  kpis.appendChild(kpiCard("متوسط التقييم العام",avgScore==null?"—":avgScore.toFixed(1)+"/5"));
+  kpis.appendChild(kpiCard("NPS",nps==null?"—":nps));
+  kpis.appendChild(kpiCard("نسبة العودة",pct(data.map(function(r){return r.again;}),"بالتأكيد")+"%"));
+  d.appendChild(kpis);
+
+  if(data.length){
+    var c=el("div","card"); c.style.marginTop="14px";
+    c.innerHTML='<h2>توزيع الفروع</h2>';
+    var cnt={};
+    data.forEach(function(r){cnt[r.branch]=(cnt[r.branch]||0)+1;});
+    var tb=el("table");
+    tb.innerHTML='<tr><th>الفرع</th><th>عدد الاستبيانات</th><th>النسبة</th></tr>';
+    Object.keys(cnt).forEach(function(b){
+      var tr=el("tr");
+      var p=Math.round(cnt[b]/data.length*100);
+      tr.innerHTML='<td>'+b+'</td><td>'+cnt[b]+'</td><td><div class="bar2"><i style="width:'+p+'%"></i></div>'+p+'%</td>';
+      tb.appendChild(tr);
+    });
+    c.appendChild(tb); d.appendChild(c);
+
+    var c2=el("div","card");
+    c2.innerHTML='<h2>أبرز ما أعجب الزبائن</h2>';
+    var lc={};
+    data.forEach(function(r){(r.liked||[]).forEach(function(l){lc[l]=(lc[l]||0)+1;});});
+    var lt=el("table");
+    lt.innerHTML='<tr><th>البند</th><th>العدد</th></tr>';
+    Object.keys(lc).sort(function(a,b){return lc[b]-lc[a];}).forEach(function(k){
+      var tr=el("tr"); tr.innerHTML='<td>'+k+'</td><td>'+lc[k]+'</td>'; lt.appendChild(tr);
+    });
+    c2.appendChild(lt); d.appendChild(c2);
+  } else {
+    var empty=el("div","card"); empty.textContent="لا توجد استبيانات بعد."; d.appendChild(empty);
+  }
+  return d;
+}
+
+function tabReception(data){
+  var d=el("div","");
+  var c=el("div","card");
+  c.innerHTML='<h2>تقييم الاستقبال والحجز</h2>';
+  var fields=[
+    ["recPhone","الرد على الهاتف"],
+    ["recWelcome","الترحيب عند الوصول"],
+    ["recApptPrecision","دقة الموعد (استقبال)"],
+    ["recClean","نظافة الاستقبال"]
+  ];
+  var tb=el("table");
+  tb.innerHTML='<tr><th>البند</th><th>المتوسط</th></tr>';
+  fields.forEach(function(f){
+    var vals=data.map(function(r){return r[f[0]];}).filter(function(v){return v;});
+    var a=avg(vals);
+    var tr=el("tr"); tr.innerHTML='<td>'+f[1]+'</td><td>'+badge(a)+'</td>';
+    tb.appendChild(tr);
+  });
+  c.appendChild(tb); d.appendChild(c);
+
+  var c2=el("div","card");
+  c2.innerHTML='<h2>طرق الحجز</h2>';
+  var bc={};
+  data.forEach(function(r){if(r.booking)bc[r.booking]=(bc[r.booking]||0)+1;});
+  var bt=el("table");
+  bt.innerHTML='<tr><th>الطريقة</th><th>العدد</th></tr>';
+  Object.keys(bc).sort(function(a,b){return bc[b]-bc[a];}).forEach(function(k){
+    var tr=el("tr"); tr.innerHTML='<td>'+k+'</td><td>'+bc[k]+'</td>'; bt.appendChild(tr);
+  });
+  c2.appendChild(bt); d.appendChild(c2);
+  return d;
+}
+
+function tabLaser(data){
+  var d=el("div","");
+  var ldata=data.filter(function(r){return r.hasLaser==="نعم";});
+  var c=el("div","card");
+  var contactYes=ldata.filter(function(r){return r.laserApptContact==="نعم";}).length;
+  var contactPct=ldata.length?Math.round(contactYes/ldata.length*100):0;
+  c.innerHTML='<h2>قسم الليزر</h2><p class="sub">إجمالي جلسات الليزر: '+ldata.length+' &nbsp;|&nbsp; تم التواصل المسبق: '+contactPct+'%</p>';
+  if(!ldata.length){c.innerHTML+='<p>لا توجد بيانات ليزر بعد.</p>'; d.appendChild(c); return d;}
+  var fields=[
+    ["laserApptOnTime","دقة موعد الجلسة"],
+    ["laserBedClean","نظافة السرير"],
+    ["laserDeviceClean","نظافة وتعقيم الجهاز"],
+    ["laserExpertise","خبرة المختصة"],
+    ["laserCare","اهتمام المختصة"],
+    ["laserResult","نتيجة الجلسة"],
+    ["laserComfort","الراحة خلال الجلسة"]
+  ];
+  var tb=el("table");
+  tb.innerHTML='<tr><th>البند</th><th>المتوسط</th></tr>';
+  fields.forEach(function(f){
+    var vals=ldata.map(function(r){return r[f[0]];}).filter(function(v){return v;});
+    var a=avg(vals);
+    var tr=el("tr"); tr.innerHTML='<td>'+f[1]+'</td><td>'+badge(a)+'</td>';
+    tb.appendChild(tr);
+  });
+  c.appendChild(tb); d.appendChild(c);
+  return d;
+}
+
+function tabCos(data){
+  var d=el("div","");
+  var cdata=data.filter(function(r){return r.clinicType||r.hasCosmeticSurgery==="نعم";});
+  var c=el("div","card");
+  c.innerHTML='<h2>عيادة الجراحة التجميلية والجلدية</h2><p class="sub">إجمالي الحالات: '+cdata.length+'</p>';
+  if(!cdata.length){c.innerHTML+='<p>لا توجد بيانات بعد.</p>'; d.appendChild(c); return d;}
+  var fields=[
+    ["clinicExperience","التجربة حسب الإجراء المطلوب"],
+    ["doctorCare","معاملة الطبيب المعالج"],
+    ["cosResult","نتيجة الإجراء"],
+    ["cosClinicAtmo","أجواء العيادة"],
+    ["cosDisinfection","مستوى التعقيم"],
+    ["cosNursing","خدمة التمريض"]
+  ];
+  var tb=el("table");
+  tb.innerHTML='<tr><th>البند</th><th>المتوسط</th></tr>';
+  fields.forEach(function(f){
+    var vals=cdata.map(function(r){return r[f[0]];}).filter(function(v){return v;});
+    var a=avg(vals);
+    var tr=el("tr"); tr.innerHTML='<td>'+f[1]+'</td><td>'+badge(a)+'</td>';
+    tb.appendChild(tr);
+  });
+  c.appendChild(tb);
+
+  var notesWithProcedure=cdata.filter(function(r){return r.cosProcedureNote&&r.cosProcedureNote.trim();});
+  if(notesWithProcedure.length){
+    var c2=el("div",""); c2.style.marginTop="12px";
+    c2.innerHTML='<div class="card"><h2>ملاحظات على الإجراءات</h2></div>';
+    var nt=c2.querySelector(".card");
+    notesWithProcedure.forEach(function(r){
+      var p=el("p",""); p.textContent=(r.name||"مجهولة")+": "+r.cosProcedureNote;
+      nt.appendChild(p);
+    });
+    d.appendChild(c2);
+  }
+  d.appendChild(c);
+  return d;
+}
+
+function tabNotes(data){
+  var d=el("div","");
+  var withNotes=data.filter(function(r){return r.note&&r.note.trim();});
+  var withProblems=data.filter(function(r){return r.problem==="نعم"&&r.problemTxt&&r.problemTxt.trim();});
+
+  var c=el("div","card");
+  c.innerHTML='<h2>الملاحظات العامة ('+withNotes.length+')</h2>';
+  if(!withNotes.length){c.innerHTML+='<p>لا توجد ملاحظات.</p>';}
+  else{
+    withNotes.forEach(function(r){
+      var p=el("p","");
+      p.textContent=(r.name||"مجهولة")+" ("+r.ts.slice(0,10)+"): "+r.note;
+      c.appendChild(p);
+    });
+  }
+  d.appendChild(c);
+
+  var c2=el("div","card");
+  c2.innerHTML='<h2>الشكاوى المبلّغة ('+withProblems.length+')</h2>';
+  if(!withProblems.length){c2.innerHTML+='<p>لا توجد شكاوى.</p>';}
+  else{
+    withProblems.forEach(function(r){
+      var p=el("p","");
+      p.style.color="var(--bad)";
+      p.textContent=(r.name||"مجهولة")+" ("+r.ts.slice(0,10)+"): "+r.problemTxt;
+      c2.appendChild(p);
+    });
+  }
+  d.appendChild(c2);
+  return d;
+}
+
+function tabLog(data){
+  var d=el("div","");
+  var c=el("div","card");
+  c.innerHTML='<h2>سجل الاستبيانات ('+data.length+')</h2>';
+  if(!data.length){c.innerHTML+='<p>لا توجد سجلات.</p>'; d.appendChild(c); return d;}
+  var tb=el("table");
+  tb.innerHTML='<tr><th>#</th><th>التاريخ</th><th>الفرع</th><th>التقييم</th><th>NPS</th></tr>';
+  var sorted=data.slice().reverse();
+  sorted.forEach(function(r,i){
+    var sc=overallScore(r);
+    var tr=el("tr");
+    tr.innerHTML='<td>'+(sorted.length-i)+'</td><td>'+(r.ts?r.ts.slice(0,10):"—")+'</td>'+
+      '<td>'+(r.branch||"—")+'</td><td>'+badge(sc)+'</td>'+
+      '<td>'+(r.nps!=null?r.nps+"<br><small>"+npsLabel(r.nps)+"</small>":"—")+'</td>';
+    tb.appendChild(tr);
+  });
+  c.appendChild(tb); d.appendChild(c);
+
+  var nav=el("div","nav"); nav.style.marginTop="10px";
+  var csvBtn=el("button","btn sm","تصدير CSV"); csvBtn.type="button";
+  csvBtn.onclick=function(){exportCSV(data);};
+  var jsonBtn=el("button","btn sm ghost","تصدير JSON"); jsonBtn.type="button";
+  jsonBtn.onclick=function(){exportJSON(data);};
+  var clearBtn=el("button","btn sm ghost","مسح البيانات"); clearBtn.type="button";
+  clearBtn.style.borderColor="var(--bad)"; clearBtn.style.color="var(--bad)";
+  clearBtn.onclick=function(){
+    if(confirm("هل أنتِ متأكدة؟ سيتم مسح جميع البيانات نهائياً!")){
+      localStorage.removeItem(STORE_KEY);
+      renderAdmin();
+    }
+  };
+  nav.appendChild(csvBtn); nav.appendChild(jsonBtn); nav.appendChild(clearBtn);
+  d.appendChild(nav);
+  return d;
+}
+
+function tabSettings(data){
+  var d=el("div","");
+  var c=el("div","card");
+  c.innerHTML='<h2>إعدادات الإدارة</h2>';
+  var q=qBox("رابط Google Apps Script API (اختياري)",false);
+  var inp=document.createElement("input"); inp.type="text";
+  inp.placeholder="https://script.google.com/macros/s/...";
+  inp.value=CFG.API||"";
+  inp.oninput=function(){CFG.API=inp.value.trim();};
+  q.appendChild(inp);
+  var hint=el("div","hint","أدخلي رابط الـ API لإرسال البيانات تلقائياً إلى Google Sheet");
+  q.appendChild(hint);
+  c.appendChild(q);
+
+  var saveBtn=el("button","btn",null); saveBtn.type="button"; saveBtn.textContent="حفظ الإعدادات";
+  saveBtn.onclick=function(){
+    try{localStorage.setItem("kmc_cfg",JSON.stringify({API:CFG.API}));}catch(e){}
+    alert("تم حفظ الإعدادات");
+  };
+  c.appendChild(saveBtn);
+  d.appendChild(c);
+  return d;
+}
+
+function exportCSV(data){
+  if(!data.length){alert("لا توجد بيانات");return;}
+  var keys=Object.keys(data[0]);
+  var rows=[keys.join(",")];
+  data.forEach(function(r){
+    rows.push(keys.map(function(k){
+      var v=Array.isArray(r[k])?r[k].join("|"):r[k];
+      return '"'+(String(v==null?"":v).replace(/"/g,'""'))+'"';
+    }).join(","));
+  });
+  var blob=new Blob(["﻿"+rows.join("\n")],{type:"text/csv;charset=utf-8"});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="kmc_survey_"+new Date().toISOString().slice(0,10)+".csv";
+  a.click();
+}
+function exportJSON(data){
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="kmc_survey_"+new Date().toISOString().slice(0,10)+".json";
+  a.click();
+}
+
+/* load saved config */
+try{var sc=JSON.parse(localStorage.getItem("kmc_cfg")||"{}");if(sc.API)CFG.API=sc.API;}catch(e){}
+
+/* init */
+render();
+</script>
+</body>
+</html>
